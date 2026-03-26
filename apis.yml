@@ -19,7 +19,9 @@ apis:
     humanURL: https://littlehorse.dev/
     tags:
       - Microservices
-    properties: []
+    properties:
+      - type: OpenAPI
+        url: https://raw.githubusercontent.com/api-evangelist/littlehorse/refs/heads/main/openapi/littlehorse-api.yml
 common:
   - type: Website
     url: https://littlehorse.dev/

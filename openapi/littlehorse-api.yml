@@ -1,0 +1,718 @@
+openapi: 3.1.0
+info:
+  title: LittleHorse REST API
+  description: >-
+    The LittleHorse REST API provides HTTP endpoints for managing workflow
+    specifications (WfSpec), workflow runs (WfRun), task definitions (TaskDef),
+    external event definitions, user tasks, and other resources in the
+    LittleHorse workflow engine.
+  version: 0.12.0
+  contact:
+    name: LittleHorse
+    url: https://littlehorse.dev/
+  license:
+    name: Server Side Public License
+    url: https://www.mongodb.com/licensing/server-side-public-license
+servers:
+  - url: '{baseUrl}'
+    description: LittleHorse Server
+    variables:
+      baseUrl:
+        default: http://localhost:2023
+paths:
+  /wfSpec:
+    get:
+      operationId: listWfSpecs
+      summary: List workflow specifications
+      description: Returns all registered workflow specifications.
+      tags:
+        - Workflow Specs
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/WfSpec'
+                  bookmark:
+                    type: string
+    post:
+      operationId: putWfSpec
+      summary: Create or update a workflow specification
+      description: Creates or updates a workflow specification.
+      tags:
+        - Workflow Specs
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PutWfSpecRequest'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WfSpec'
+  /wfSpec/{name}:
+    get:
+      operationId: getWfSpec
+      summary: Get a workflow specification
+      description: Returns a specific workflow specification by name.
+      tags:
+        - Workflow Specs
+      parameters:
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: majorVersion
+          in: query
+          schema:
+            type: integer
+        - name: revision
+          in: query
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WfSpec'
+    delete:
+      operationId: deleteWfSpec
+      summary: Delete a workflow specification
+      description: Deletes a workflow specification.
+      tags:
+        - Workflow Specs
+      parameters:
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: majorVersion
+          in: query
+          required: true
+          schema:
+            type: integer
+        - name: revision
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: WfSpec deleted
+  /wfRun:
+    post:
+      operationId: runWf
+      summary: Run a workflow
+      description: Starts a new workflow run based on a workflow specification.
+      tags:
+        - Workflow Runs
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RunWfRequest'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WfRun'
+  /wfRun/{wfRunId}:
+    get:
+      operationId: getWfRun
+      summary: Get a workflow run
+      description: Returns details of a specific workflow run.
+      tags:
+        - Workflow Runs
+      parameters:
+        - name: wfRunId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WfRun'
+    delete:
+      operationId: deleteWfRun
+      summary: Delete a workflow run
+      description: Deletes a workflow run and its data.
+      tags:
+        - Workflow Runs
+      parameters:
+        - name: wfRunId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: WfRun deleted
+  /wfRun/{wfRunId}/stop:
+    post:
+      operationId: stopWfRun
+      summary: Stop a workflow run
+      description: Stops a running workflow.
+      tags:
+        - Workflow Runs
+      parameters:
+        - name: wfRunId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                threadRunNumber:
+                  type: integer
+      responses:
+        '200':
+          description: WfRun stopped
+  /wfRun/{wfRunId}/resume:
+    post:
+      operationId: resumeWfRun
+      summary: Resume a workflow run
+      description: Resumes a halted workflow run.
+      tags:
+        - Workflow Runs
+      parameters:
+        - name: wfRunId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                threadRunNumber:
+                  type: integer
+      responses:
+        '200':
+          description: WfRun resumed
+  /wfRun/search:
+    get:
+      operationId: searchWfRuns
+      summary: Search workflow runs
+      description: Search for workflow runs based on criteria.
+      tags:
+        - Workflow Runs
+      parameters:
+        - name: wfSpecName
+          in: query
+          schema:
+            type: string
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum:
+              - RUNNING
+              - COMPLETED
+              - HALTING
+              - HALTED
+              - ERROR
+        - name: limit
+          in: query
+          schema:
+            type: integer
+        - name: bookmark
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+  /taskDef:
+    get:
+      operationId: listTaskDefs
+      summary: List task definitions
+      description: Returns all registered task definitions.
+      tags:
+        - Task Definitions
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TaskDef'
+    post:
+      operationId: putTaskDef
+      summary: Create or update a task definition
+      description: Creates or updates a task definition.
+      tags:
+        - Task Definitions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PutTaskDefRequest'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskDef'
+  /taskDef/{name}:
+    get:
+      operationId: getTaskDef
+      summary: Get a task definition
+      description: Returns a specific task definition.
+      tags:
+        - Task Definitions
+      parameters:
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskDef'
+    delete:
+      operationId: deleteTaskDef
+      summary: Delete a task definition
+      description: Deletes a task definition.
+      tags:
+        - Task Definitions
+      parameters:
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: TaskDef deleted
+  /externalEventDef:
+    get:
+      operationId: listExternalEventDefs
+      summary: List external event definitions
+      description: Returns all registered external event definitions.
+      tags:
+        - External Events
+      responses:
+        '200':
+          description: Successful response
+    post:
+      operationId: putExternalEventDef
+      summary: Create an external event definition
+      description: Creates a new external event definition.
+      tags:
+        - External Events
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+              properties:
+                name:
+                  type: string
+                retentionPolicy:
+                  type: object
+      responses:
+        '200':
+          description: External event definition created
+  /externalEventDef/{name}:
+    get:
+      operationId: getExternalEventDef
+      summary: Get an external event definition
+      description: Returns a specific external event definition.
+      tags:
+        - External Events
+      parameters:
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+  /wfRun/{wfRunId}/externalEvent/{externalEventDefName}:
+    post:
+      operationId: postExternalEvent
+      summary: Post an external event
+      description: Posts an external event to a specific workflow run.
+      tags:
+        - External Events
+      parameters:
+        - name: wfRunId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: externalEventDefName
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: object
+                guid:
+                  type: string
+      responses:
+        '200':
+          description: External event posted
+  /wfRun/{wfRunId}/userTaskRun/{userTaskRunId}:
+    get:
+      operationId: getUserTaskRun
+      summary: Get a user task run
+      description: Returns details of a specific user task run.
+      tags:
+        - User Tasks
+      parameters:
+        - name: wfRunId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: userTaskRunId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserTaskRun'
+  /wfRun/{wfRunId}/userTaskRun/{userTaskRunId}/assign:
+    post:
+      operationId: assignUserTask
+      summary: Assign a user task
+      description: Assigns a user task to a user or group.
+      tags:
+        - User Tasks
+      parameters:
+        - name: wfRunId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: userTaskRunId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: string
+                userGroup:
+                  type: string
+                overrideClaim:
+                  type: boolean
+      responses:
+        '200':
+          description: User task assigned
+  /wfRun/{wfRunId}/userTaskRun/{userTaskRunId}/complete:
+    post:
+      operationId: completeUserTask
+      summary: Complete a user task
+      description: Completes a user task with results.
+      tags:
+        - User Tasks
+      parameters:
+        - name: wfRunId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: userTaskRunId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: string
+                results:
+                  type: object
+      responses:
+        '200':
+          description: User task completed
+  /nodeRun/{wfRunId}/{threadRunNumber}/{position}:
+    get:
+      operationId: getNodeRun
+      summary: Get a node run
+      description: Returns details of a specific node run within a workflow.
+      tags:
+        - Node Runs
+      parameters:
+        - name: wfRunId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: threadRunNumber
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: position
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NodeRun'
+components:
+  schemas:
+    WfSpec:
+      type: object
+      properties:
+        id:
+          type: object
+          properties:
+            name:
+              type: string
+            majorVersion:
+              type: integer
+            revision:
+              type: integer
+        status:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        threadSpecs:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/ThreadSpec'
+        entrypointThreadName:
+          type: string
+        retentionPolicy:
+          type: object
+    PutWfSpecRequest:
+      type: object
+      required:
+        - name
+        - threadSpecs
+        - entrypointThreadName
+      properties:
+        name:
+          type: string
+        threadSpecs:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/ThreadSpec'
+        entrypointThreadName:
+          type: string
+        retentionPolicy:
+          type: object
+    ThreadSpec:
+      type: object
+      properties:
+        nodes:
+          type: object
+          additionalProperties:
+            type: object
+        variableDefs:
+          type: array
+          items:
+            type: object
+        interruptDefs:
+          type: array
+          items:
+            type: object
+    RunWfRequest:
+      type: object
+      required:
+        - wfSpecName
+      properties:
+        wfSpecName:
+          type: string
+        majorVersion:
+          type: integer
+        revision:
+          type: integer
+        id:
+          type: string
+        variables:
+          type: object
+        parentWfRunId:
+          type: string
+    WfRun:
+      type: object
+      properties:
+        id:
+          type: string
+        wfSpecId:
+          type: object
+          properties:
+            name:
+              type: string
+            majorVersion:
+              type: integer
+            revision:
+              type: integer
+        status:
+          type: string
+          enum:
+            - RUNNING
+            - COMPLETED
+            - HALTING
+            - HALTED
+            - ERROR
+        startTime:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time
+        threadRuns:
+          type: array
+          items:
+            type: object
+        pendingInterrupts:
+          type: array
+          items:
+            type: object
+        pendingFailures:
+          type: array
+          items:
+            type: object
+    TaskDef:
+      type: object
+      properties:
+        id:
+          type: object
+          properties:
+            name:
+              type: string
+        inputVars:
+          type: array
+          items:
+            type: object
+        createdAt:
+          type: string
+          format: date-time
+    PutTaskDefRequest:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+        inputVars:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+              name:
+                type: string
+    UserTaskRun:
+      type: object
+      properties:
+        id:
+          type: object
+        userTaskDefName:
+          type: string
+        status:
+          type: string
+          enum:
+            - UNASSIGNED
+            - ASSIGNED
+            - DONE
+            - CANCELLED
+        userId:
+          type: string
+        userGroup:
+          type: string
+        results:
+          type: object
+        scheduledTime:
+          type: string
+          format: date-time
+    NodeRun:
+      type: object
+      properties:
+        id:
+          type: object
+        status:
+          type: string
+        arrivalTime:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time
+        wfSpecId:
+          type: object
+        threadSpecName:
+          type: string
+        nodeName:
+          type: string
+        failures:
+          type: array
+          items:
+            type: object
