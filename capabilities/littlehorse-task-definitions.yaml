@@ -1,0 +1,177 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: LittleHorse REST API — Task Definitions
+  description: 'LittleHorse REST API — Task Definitions. 4 operations. Lead operation: List task definitions. Self-contained
+    Naftiko capability covering one Littlehorse business surface.'
+  tags:
+  - Littlehorse
+  - Task Definitions
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LITTLEHORSE_API_KEY: LITTLEHORSE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: littlehorse-task-definitions
+    baseUri: ''
+    description: LittleHorse REST API — Task Definitions business capability. Self-contained, no shared references.
+    resources:
+    - name: taskDef
+      path: /taskDef
+      operations:
+      - name: listtaskdefs
+        method: GET
+        description: List task definitions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: puttaskdef
+        method: POST
+        description: Create or update a task definition
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: taskDef-name
+      path: /taskDef/{name}
+      operations:
+      - name: gettaskdef
+        method: GET
+        description: Get a task definition
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: name
+          in: path
+          type: string
+          required: true
+      - name: deletetaskdef
+        method: DELETE
+        description: Delete a task definition
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: name
+          in: path
+          type: string
+          required: true
+  exposes:
+  - type: rest
+    namespace: littlehorse-task-definitions-rest
+    port: 8080
+    description: REST adapter for LittleHorse REST API — Task Definitions. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/taskdef
+      name: taskdef
+      description: REST surface for taskDef.
+      operations:
+      - method: GET
+        name: listtaskdefs
+        description: List task definitions
+        call: littlehorse-task-definitions.listtaskdefs
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: puttaskdef
+        description: Create or update a task definition
+        call: littlehorse-task-definitions.puttaskdef
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/taskdef/{name}
+      name: taskdef-name
+      description: REST surface for taskDef-name.
+      operations:
+      - method: GET
+        name: gettaskdef
+        description: Get a task definition
+        call: littlehorse-task-definitions.gettaskdef
+        with:
+          name: rest.name
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletetaskdef
+        description: Delete a task definition
+        call: littlehorse-task-definitions.deletetaskdef
+        with:
+          name: rest.name
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: littlehorse-task-definitions-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for LittleHorse REST API — Task Definitions. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-task-definitions
+      description: List task definitions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: littlehorse-task-definitions.listtaskdefs
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-update-task-definition
+      description: Create or update a task definition
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: littlehorse-task-definitions.puttaskdef
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-task-definition
+      description: Get a task definition
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: littlehorse-task-definitions.gettaskdef
+      with:
+        name: tools.name
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-task-definition
+      description: Delete a task definition
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: littlehorse-task-definitions.deletetaskdef
+      with:
+        name: tools.name
+      outputParameters:
+      - type: object
+        mapping: $.

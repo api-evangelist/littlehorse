@@ -1,0 +1,199 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: LittleHorse REST API — Workflow Specs
+  description: 'LittleHorse REST API — Workflow Specs. 4 operations. Lead operation: List workflow specifications. Self-contained
+    Naftiko capability covering one Littlehorse business surface.'
+  tags:
+  - Littlehorse
+  - Workflow Specs
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LITTLEHORSE_API_KEY: LITTLEHORSE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: littlehorse-workflow-specs
+    baseUri: ''
+    description: LittleHorse REST API — Workflow Specs business capability. Self-contained, no shared references.
+    resources:
+    - name: wfSpec
+      path: /wfSpec
+      operations:
+      - name: listwfspecs
+        method: GET
+        description: List workflow specifications
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: putwfspec
+        method: POST
+        description: Create or update a workflow specification
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: wfSpec-name
+      path: /wfSpec/{name}
+      operations:
+      - name: getwfspec
+        method: GET
+        description: Get a workflow specification
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: name
+          in: path
+          type: string
+          required: true
+        - name: majorVersion
+          in: query
+          type: integer
+        - name: revision
+          in: query
+          type: integer
+      - name: deletewfspec
+        method: DELETE
+        description: Delete a workflow specification
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: name
+          in: path
+          type: string
+          required: true
+        - name: majorVersion
+          in: query
+          type: integer
+          required: true
+        - name: revision
+          in: query
+          type: integer
+          required: true
+  exposes:
+  - type: rest
+    namespace: littlehorse-workflow-specs-rest
+    port: 8080
+    description: REST adapter for LittleHorse REST API — Workflow Specs. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/wfspec
+      name: wfspec
+      description: REST surface for wfSpec.
+      operations:
+      - method: GET
+        name: listwfspecs
+        description: List workflow specifications
+        call: littlehorse-workflow-specs.listwfspecs
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: putwfspec
+        description: Create or update a workflow specification
+        call: littlehorse-workflow-specs.putwfspec
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/wfspec/{name}
+      name: wfspec-name
+      description: REST surface for wfSpec-name.
+      operations:
+      - method: GET
+        name: getwfspec
+        description: Get a workflow specification
+        call: littlehorse-workflow-specs.getwfspec
+        with:
+          name: rest.name
+          majorVersion: rest.majorVersion
+          revision: rest.revision
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletewfspec
+        description: Delete a workflow specification
+        call: littlehorse-workflow-specs.deletewfspec
+        with:
+          name: rest.name
+          majorVersion: rest.majorVersion
+          revision: rest.revision
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: littlehorse-workflow-specs-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for LittleHorse REST API — Workflow Specs. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-workflow-specifications
+      description: List workflow specifications
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: littlehorse-workflow-specs.listwfspecs
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-update-workflow-specification
+      description: Create or update a workflow specification
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: littlehorse-workflow-specs.putwfspec
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-workflow-specification
+      description: Get a workflow specification
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: littlehorse-workflow-specs.getwfspec
+      with:
+        name: tools.name
+        majorVersion: tools.majorVersion
+        revision: tools.revision
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-workflow-specification
+      description: Delete a workflow specification
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: littlehorse-workflow-specs.deletewfspec
+      with:
+        name: tools.name
+        majorVersion: tools.majorVersion
+        revision: tools.revision
+      outputParameters:
+      - type: object
+        mapping: $.
