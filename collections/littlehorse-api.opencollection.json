@@ -1,0 +1,506 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LittleHorse REST API",
+    "version": "0.12.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Workflow Specs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List workflow specifications",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{baseUrl}/wfSpec"
+          },
+          "docs": "Returns all registered workflow specifications."
+        },
+        {
+          "info": {
+            "name": "Create or update a workflow specification",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{baseUrl}/wfSpec",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or updates a workflow specification."
+        },
+        {
+          "info": {
+            "name": "Get a workflow specification",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{baseUrl}/wfSpec/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "majorVersion",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "revision",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns a specific workflow specification by name."
+        },
+        {
+          "info": {
+            "name": "Delete a workflow specification",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{baseUrl}/wfSpec/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "majorVersion",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "revision",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Deletes a workflow specification."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Workflow Runs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Run a workflow",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{baseUrl}/wfRun",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Starts a new workflow run based on a workflow specification."
+        },
+        {
+          "info": {
+            "name": "Get a workflow run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{baseUrl}/wfRun/:wfRunId",
+            "params": [
+              {
+                "name": "wfRunId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns details of a specific workflow run."
+        },
+        {
+          "info": {
+            "name": "Delete a workflow run",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{baseUrl}/wfRun/:wfRunId",
+            "params": [
+              {
+                "name": "wfRunId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes a workflow run and its data."
+        },
+        {
+          "info": {
+            "name": "Stop a workflow run",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{baseUrl}/wfRun/:wfRunId/stop",
+            "params": [
+              {
+                "name": "wfRunId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Stops a running workflow."
+        },
+        {
+          "info": {
+            "name": "Resume a workflow run",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{baseUrl}/wfRun/:wfRunId/resume",
+            "params": [
+              {
+                "name": "wfRunId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Resumes a halted workflow run."
+        },
+        {
+          "info": {
+            "name": "Search workflow runs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{baseUrl}/wfRun/search",
+            "params": [
+              {
+                "name": "wfSpecName",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "bookmark",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Search for workflow runs based on criteria."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Task Definitions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List task definitions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{baseUrl}/taskDef"
+          },
+          "docs": "Returns all registered task definitions."
+        },
+        {
+          "info": {
+            "name": "Create or update a task definition",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{baseUrl}/taskDef",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or updates a task definition."
+        },
+        {
+          "info": {
+            "name": "Get a task definition",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{baseUrl}/taskDef/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns a specific task definition."
+        },
+        {
+          "info": {
+            "name": "Delete a task definition",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{baseUrl}/taskDef/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes a task definition."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "External Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List external event definitions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{baseUrl}/externalEventDef"
+          },
+          "docs": "Returns all registered external event definitions."
+        },
+        {
+          "info": {
+            "name": "Create an external event definition",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{baseUrl}/externalEventDef",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new external event definition."
+        },
+        {
+          "info": {
+            "name": "Get an external event definition",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{baseUrl}/externalEventDef/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns a specific external event definition."
+        },
+        {
+          "info": {
+            "name": "Post an external event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{baseUrl}/wfRun/:wfRunId/externalEvent/:externalEventDefName",
+            "params": [
+              {
+                "name": "wfRunId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "externalEventDefName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Posts an external event to a specific workflow run."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "User Tasks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a user task run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{baseUrl}/wfRun/:wfRunId/userTaskRun/:userTaskRunId",
+            "params": [
+              {
+                "name": "wfRunId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "userTaskRunId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns details of a specific user task run."
+        },
+        {
+          "info": {
+            "name": "Assign a user task",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{baseUrl}/wfRun/:wfRunId/userTaskRun/:userTaskRunId/assign",
+            "params": [
+              {
+                "name": "wfRunId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "userTaskRunId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Assigns a user task to a user or group."
+        },
+        {
+          "info": {
+            "name": "Complete a user task",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{baseUrl}/wfRun/:wfRunId/userTaskRun/:userTaskRunId/complete",
+            "params": [
+              {
+                "name": "wfRunId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "userTaskRunId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Completes a user task with results."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Node Runs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a node run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{baseUrl}/nodeRun/:wfRunId/:threadRunNumber/:position",
+            "params": [
+              {
+                "name": "wfRunId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "threadRunNumber",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "position",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns details of a specific node run within a workflow."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
