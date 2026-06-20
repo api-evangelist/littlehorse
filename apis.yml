@@ -4,7 +4,7 @@ description: >-
   LittleHorse is an open source workflow engine for orchestrating distributed systems with support for Java, Go, Python,
   and .NET.
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
   - Microservices
 url: https://raw.githubusercontent.com/api-evangelist/littlehorse/refs/heads/main/apis.yml
