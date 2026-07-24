@@ -1,0 +1,100 @@
+openapi: 3.1.0
+info:
+  title: LittleHorse REST External Events API
+  description: The LittleHorse REST API provides HTTP endpoints for managing workflow specifications (WfSpec), workflow runs (WfRun), task definitions (TaskDef), external event definitions, user tasks, and other resources in the LittleHorse workflow engine.
+  version: 0.12.0
+  contact:
+    name: LittleHorse
+    url: https://littlehorse.dev/
+  license:
+    name: Server Side Public License
+    url: https://www.mongodb.com/licensing/server-side-public-license
+servers:
+- url: '{baseUrl}'
+  description: LittleHorse Server
+  variables:
+    baseUrl:
+      default: http://localhost:2023
+tags:
+- name: External Events
+paths:
+  /externalEventDef:
+    get:
+      operationId: listExternalEventDefs
+      summary: List external event definitions
+      description: Returns all registered external event definitions.
+      tags:
+      - External Events
+      responses:
+        '200':
+          description: Successful response
+    post:
+      operationId: putExternalEventDef
+      summary: Create an external event definition
+      description: Creates a new external event definition.
+      tags:
+      - External Events
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - name
+              properties:
+                name:
+                  type: string
+                retentionPolicy:
+                  type: object
+      responses:
+        '200':
+          description: External event definition created
+  /externalEventDef/{name}:
+    get:
+      operationId: getExternalEventDef
+      summary: Get an external event definition
+      description: Returns a specific external event definition.
+      tags:
+      - External Events
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+  /wfRun/{wfRunId}/externalEvent/{externalEventDefName}:
+    post:
+      operationId: postExternalEvent
+      summary: Post an external event
+      description: Posts an external event to a specific workflow run.
+      tags:
+      - External Events
+      parameters:
+      - name: wfRunId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: externalEventDefName
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: object
+                guid:
+                  type: string
+      responses:
+        '200':
+          description: External event posted

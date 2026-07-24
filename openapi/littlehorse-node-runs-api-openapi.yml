@@ -1,0 +1,75 @@
+openapi: 3.1.0
+info:
+  title: LittleHorse REST External Events Node Runs API
+  description: The LittleHorse REST API provides HTTP endpoints for managing workflow specifications (WfSpec), workflow runs (WfRun), task definitions (TaskDef), external event definitions, user tasks, and other resources in the LittleHorse workflow engine.
+  version: 0.12.0
+  contact:
+    name: LittleHorse
+    url: https://littlehorse.dev/
+  license:
+    name: Server Side Public License
+    url: https://www.mongodb.com/licensing/server-side-public-license
+servers:
+- url: '{baseUrl}'
+  description: LittleHorse Server
+  variables:
+    baseUrl:
+      default: http://localhost:2023
+tags:
+- name: Node Runs
+paths:
+  /nodeRun/{wfRunId}/{threadRunNumber}/{position}:
+    get:
+      operationId: getNodeRun
+      summary: Get a node run
+      description: Returns details of a specific node run within a workflow.
+      tags:
+      - Node Runs
+      parameters:
+      - name: wfRunId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: threadRunNumber
+        in: path
+        required: true
+        schema:
+          type: integer
+      - name: position
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NodeRun'
+components:
+  schemas:
+    NodeRun:
+      type: object
+      properties:
+        id:
+          type: object
+        status:
+          type: string
+        arrivalTime:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time
+        wfSpecId:
+          type: object
+        threadSpecName:
+          type: string
+        nodeName:
+          type: string
+        failures:
+          type: array
+          items:
+            type: object

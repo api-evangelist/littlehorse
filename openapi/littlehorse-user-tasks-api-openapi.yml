@@ -1,0 +1,136 @@
+openapi: 3.1.0
+info:
+  title: LittleHorse REST External Events User Tasks API
+  description: The LittleHorse REST API provides HTTP endpoints for managing workflow specifications (WfSpec), workflow runs (WfRun), task definitions (TaskDef), external event definitions, user tasks, and other resources in the LittleHorse workflow engine.
+  version: 0.12.0
+  contact:
+    name: LittleHorse
+    url: https://littlehorse.dev/
+  license:
+    name: Server Side Public License
+    url: https://www.mongodb.com/licensing/server-side-public-license
+servers:
+- url: '{baseUrl}'
+  description: LittleHorse Server
+  variables:
+    baseUrl:
+      default: http://localhost:2023
+tags:
+- name: User Tasks
+paths:
+  /wfRun/{wfRunId}/userTaskRun/{userTaskRunId}:
+    get:
+      operationId: getUserTaskRun
+      summary: Get a user task run
+      description: Returns details of a specific user task run.
+      tags:
+      - User Tasks
+      parameters:
+      - name: wfRunId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: userTaskRunId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserTaskRun'
+  /wfRun/{wfRunId}/userTaskRun/{userTaskRunId}/assign:
+    post:
+      operationId: assignUserTask
+      summary: Assign a user task
+      description: Assigns a user task to a user or group.
+      tags:
+      - User Tasks
+      parameters:
+      - name: wfRunId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: userTaskRunId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: string
+                userGroup:
+                  type: string
+                overrideClaim:
+                  type: boolean
+      responses:
+        '200':
+          description: User task assigned
+  /wfRun/{wfRunId}/userTaskRun/{userTaskRunId}/complete:
+    post:
+      operationId: completeUserTask
+      summary: Complete a user task
+      description: Completes a user task with results.
+      tags:
+      - User Tasks
+      parameters:
+      - name: wfRunId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: userTaskRunId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: string
+                results:
+                  type: object
+      responses:
+        '200':
+          description: User task completed
+components:
+  schemas:
+    UserTaskRun:
+      type: object
+      properties:
+        id:
+          type: object
+        userTaskDefName:
+          type: string
+        status:
+          type: string
+          enum:
+          - UNASSIGNED
+          - ASSIGNED
+          - DONE
+          - CANCELLED
+        userId:
+          type: string
+        userGroup:
+          type: string
+        results:
+          type: object
+        scheduledTime:
+          type: string
+          format: date-time

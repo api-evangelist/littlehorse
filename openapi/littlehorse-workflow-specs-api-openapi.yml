@@ -1,0 +1,172 @@
+openapi: 3.1.0
+info:
+  title: LittleHorse REST External Events Workflow Specs API
+  description: The LittleHorse REST API provides HTTP endpoints for managing workflow specifications (WfSpec), workflow runs (WfRun), task definitions (TaskDef), external event definitions, user tasks, and other resources in the LittleHorse workflow engine.
+  version: 0.12.0
+  contact:
+    name: LittleHorse
+    url: https://littlehorse.dev/
+  license:
+    name: Server Side Public License
+    url: https://www.mongodb.com/licensing/server-side-public-license
+servers:
+- url: '{baseUrl}'
+  description: LittleHorse Server
+  variables:
+    baseUrl:
+      default: http://localhost:2023
+tags:
+- name: Workflow Specs
+paths:
+  /wfSpec:
+    get:
+      operationId: listWfSpecs
+      summary: List workflow specifications
+      description: Returns all registered workflow specifications.
+      tags:
+      - Workflow Specs
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/WfSpec'
+                  bookmark:
+                    type: string
+    post:
+      operationId: putWfSpec
+      summary: Create or update a workflow specification
+      description: Creates or updates a workflow specification.
+      tags:
+      - Workflow Specs
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PutWfSpecRequest'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WfSpec'
+  /wfSpec/{name}:
+    get:
+      operationId: getWfSpec
+      summary: Get a workflow specification
+      description: Returns a specific workflow specification by name.
+      tags:
+      - Workflow Specs
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: majorVersion
+        in: query
+        schema:
+          type: integer
+      - name: revision
+        in: query
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WfSpec'
+    delete:
+      operationId: deleteWfSpec
+      summary: Delete a workflow specification
+      description: Deletes a workflow specification.
+      tags:
+      - Workflow Specs
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: majorVersion
+        in: query
+        required: true
+        schema:
+          type: integer
+      - name: revision
+        in: query
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: WfSpec deleted
+components:
+  schemas:
+    PutWfSpecRequest:
+      type: object
+      required:
+      - name
+      - threadSpecs
+      - entrypointThreadName
+      properties:
+        name:
+          type: string
+        threadSpecs:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/ThreadSpec'
+        entrypointThreadName:
+          type: string
+        retentionPolicy:
+          type: object
+    WfSpec:
+      type: object
+      properties:
+        id:
+          type: object
+          properties:
+            name:
+              type: string
+            majorVersion:
+              type: integer
+            revision:
+              type: integer
+        status:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        threadSpecs:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/ThreadSpec'
+        entrypointThreadName:
+          type: string
+        retentionPolicy:
+          type: object
+    ThreadSpec:
+      type: object
+      properties:
+        nodes:
+          type: object
+          additionalProperties:
+            type: object
+        variableDefs:
+          type: array
+          items:
+            type: object
+        interruptDefs:
+          type: array
+          items:
+            type: object

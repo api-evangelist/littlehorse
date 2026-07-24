@@ -1,0 +1,215 @@
+openapi: 3.1.0
+info:
+  title: LittleHorse REST External Events Workflow Runs API
+  description: The LittleHorse REST API provides HTTP endpoints for managing workflow specifications (WfSpec), workflow runs (WfRun), task definitions (TaskDef), external event definitions, user tasks, and other resources in the LittleHorse workflow engine.
+  version: 0.12.0
+  contact:
+    name: LittleHorse
+    url: https://littlehorse.dev/
+  license:
+    name: Server Side Public License
+    url: https://www.mongodb.com/licensing/server-side-public-license
+servers:
+- url: '{baseUrl}'
+  description: LittleHorse Server
+  variables:
+    baseUrl:
+      default: http://localhost:2023
+tags:
+- name: Workflow Runs
+paths:
+  /wfRun:
+    post:
+      operationId: runWf
+      summary: Run a workflow
+      description: Starts a new workflow run based on a workflow specification.
+      tags:
+      - Workflow Runs
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RunWfRequest'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WfRun'
+  /wfRun/{wfRunId}:
+    get:
+      operationId: getWfRun
+      summary: Get a workflow run
+      description: Returns details of a specific workflow run.
+      tags:
+      - Workflow Runs
+      parameters:
+      - name: wfRunId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WfRun'
+    delete:
+      operationId: deleteWfRun
+      summary: Delete a workflow run
+      description: Deletes a workflow run and its data.
+      tags:
+      - Workflow Runs
+      parameters:
+      - name: wfRunId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: WfRun deleted
+  /wfRun/{wfRunId}/stop:
+    post:
+      operationId: stopWfRun
+      summary: Stop a workflow run
+      description: Stops a running workflow.
+      tags:
+      - Workflow Runs
+      parameters:
+      - name: wfRunId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                threadRunNumber:
+                  type: integer
+      responses:
+        '200':
+          description: WfRun stopped
+  /wfRun/{wfRunId}/resume:
+    post:
+      operationId: resumeWfRun
+      summary: Resume a workflow run
+      description: Resumes a halted workflow run.
+      tags:
+      - Workflow Runs
+      parameters:
+      - name: wfRunId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                threadRunNumber:
+                  type: integer
+      responses:
+        '200':
+          description: WfRun resumed
+  /wfRun/search:
+    get:
+      operationId: searchWfRuns
+      summary: Search workflow runs
+      description: Search for workflow runs based on criteria.
+      tags:
+      - Workflow Runs
+      parameters:
+      - name: wfSpecName
+        in: query
+        schema:
+          type: string
+      - name: status
+        in: query
+        schema:
+          type: string
+          enum:
+          - RUNNING
+          - COMPLETED
+          - HALTING
+          - HALTED
+          - ERROR
+      - name: limit
+        in: query
+        schema:
+          type: integer
+      - name: bookmark
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+components:
+  schemas:
+    WfRun:
+      type: object
+      properties:
+        id:
+          type: string
+        wfSpecId:
+          type: object
+          properties:
+            name:
+              type: string
+            majorVersion:
+              type: integer
+            revision:
+              type: integer
+        status:
+          type: string
+          enum:
+          - RUNNING
+          - COMPLETED
+          - HALTING
+          - HALTED
+          - ERROR
+        startTime:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time
+        threadRuns:
+          type: array
+          items:
+            type: object
+        pendingInterrupts:
+          type: array
+          items:
+            type: object
+        pendingFailures:
+          type: array
+          items:
+            type: object
+    RunWfRequest:
+      type: object
+      required:
+      - wfSpecName
+      properties:
+        wfSpecName:
+          type: string
+        majorVersion:
+          type: integer
+        revision:
+          type: integer
+        id:
+          type: string
+        variables:
+          type: object
+        parentWfRunId:
+          type: string
