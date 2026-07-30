@@ -4,7 +4,19 @@ description: >-
   LittleHorse is an open source workflow engine for orchestrating distributed systems with support for Java, Go, Python,
   and .NET.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Freemium
+  confidence: medium
+  source:
+  - plans
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/littlehorse.png
 tags:
   - Microservices
 url: https://raw.githubusercontent.com/api-evangelist/littlehorse/refs/heads/main/apis.yml
@@ -12,17 +24,60 @@ created: '2026-03-26'
 modified: '2026-05-19'
 specificationVersion: '0.19'
 apis:
-  - aid: littlehorse:littlehorse
-    name: LittleHorse
-    description: >-
-      LittleHorse is an open source workflow engine for orchestrating distributed systems with support for Java, Go,
-      Python, and .NET.
-    humanURL: https://littlehorse.dev/
-    tags:
-      - Microservices
-    properties:
-      - type: OpenAPI
-        url: https://raw.githubusercontent.com/api-evangelist/littlehorse/refs/heads/main/openapi/littlehorse-api.yml
+- aid: littlehorse:littlehorse-external-events-api
+  name: LittleHorse External Events API
+  description: The External Events API from LittleHorse — 3 operation(s) for external events.
+  humanURL: https://littlehorse.dev/
+  tags:
+  - External Events
+  properties:
+  - type: OpenAPI
+    url: openapi/littlehorse-external-events-api-openapi.yml
+- aid: littlehorse:littlehorse-node-runs-api
+  name: LittleHorse Node Runs API
+  description: The Node Runs API from LittleHorse — 1 operation(s) for node runs.
+  humanURL: https://littlehorse.dev/
+  tags:
+  - Node Runs
+  properties:
+  - type: OpenAPI
+    url: openapi/littlehorse-node-runs-api-openapi.yml
+- aid: littlehorse:littlehorse-task-definitions-api
+  name: LittleHorse Task Definitions API
+  description: The Task Definitions API from LittleHorse — 2 operation(s) for task definitions.
+  humanURL: https://littlehorse.dev/
+  tags:
+  - Task Definitions
+  properties:
+  - type: OpenAPI
+    url: openapi/littlehorse-task-definitions-api-openapi.yml
+- aid: littlehorse:littlehorse-user-tasks-api
+  name: LittleHorse User Tasks API
+  description: The User Tasks API from LittleHorse — 3 operation(s) for user tasks.
+  humanURL: https://littlehorse.dev/
+  tags:
+  - User Tasks
+  properties:
+  - type: OpenAPI
+    url: openapi/littlehorse-user-tasks-api-openapi.yml
+- aid: littlehorse:littlehorse-workflow-runs-api
+  name: LittleHorse Workflow Runs API
+  description: The Workflow Runs API from LittleHorse — 5 operation(s) for workflow runs.
+  humanURL: https://littlehorse.dev/
+  tags:
+  - Workflow Runs
+  properties:
+  - type: OpenAPI
+    url: openapi/littlehorse-workflow-runs-api-openapi.yml
+- aid: littlehorse:littlehorse-workflow-specs-api
+  name: LittleHorse Workflow Specs API
+  description: The Workflow Specs API from LittleHorse — 2 operation(s) for workflow specs.
+  humanURL: https://littlehorse.dev/
+  tags:
+  - Workflow Specs
+  properties:
+  - type: OpenAPI
+    url: openapi/littlehorse-workflow-specs-api-openapi.yml
 common:
   - type: AgenticAccess
     url: agentic-access/littlehorse-agentic-access.yml
