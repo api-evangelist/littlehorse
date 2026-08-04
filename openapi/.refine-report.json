@@ -1,0 +1,24 @@
+{
+  "provider": "littlehorse",
+  "sources": [
+    "littlehorse-external-events-api-openapi.yml",
+    "littlehorse-node-runs-api-openapi.yml",
+    "littlehorse-task-definitions-api-openapi.yml",
+    "littlehorse-user-tasks-api-openapi.yml",
+    "littlehorse-workflow-runs-api-openapi.yml",
+    "littlehorse-workflow-specs-api-openapi.yml"
+  ],
+  "outputs": [
+    "littlehorse-external-events-api-openapi.yml",
+    "littlehorse-node-runs-api-openapi.yml",
+    "littlehorse-task-definitions-api-openapi.yml",
+    "littlehorse-user-tasks-api-openapi.yml",
+    "littlehorse-workflow-runs-api-openapi.yml",
+    "littlehorse-workflow-specs-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
