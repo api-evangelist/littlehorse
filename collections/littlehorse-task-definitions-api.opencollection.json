@@ -1,0 +1,80 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LittleHorse REST External Events Task Definitions API",
+    "version": "0.12.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Task Definitions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List task definitions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{baseUrl}/taskDef"
+          },
+          "docs": "Returns all registered task definitions."
+        },
+        {
+          "info": {
+            "name": "Create or update a task definition",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{baseUrl}/taskDef",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or updates a task definition."
+        },
+        {
+          "info": {
+            "name": "Get a task definition",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{baseUrl}/taskDef/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns a specific task definition."
+        },
+        {
+          "info": {
+            "name": "Delete a task definition",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{baseUrl}/taskDef/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes a task definition."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

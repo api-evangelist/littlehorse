@@ -1,0 +1,46 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LittleHorse REST External Events Node Runs API",
+    "version": "0.12.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Node Runs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a node run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{baseUrl}/nodeRun/:wfRunId/:threadRunNumber/:position",
+            "params": [
+              {
+                "name": "wfRunId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "threadRunNumber",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "position",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns details of a specific node run within a workflow."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

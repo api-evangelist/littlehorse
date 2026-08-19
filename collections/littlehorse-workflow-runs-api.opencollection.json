@@ -1,0 +1,146 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LittleHorse REST External Events Workflow Runs API",
+    "version": "0.12.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Workflow Runs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Run a workflow",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{baseUrl}/wfRun",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Starts a new workflow run based on a workflow specification."
+        },
+        {
+          "info": {
+            "name": "Get a workflow run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{baseUrl}/wfRun/:wfRunId",
+            "params": [
+              {
+                "name": "wfRunId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns details of a specific workflow run."
+        },
+        {
+          "info": {
+            "name": "Delete a workflow run",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{baseUrl}/wfRun/:wfRunId",
+            "params": [
+              {
+                "name": "wfRunId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes a workflow run and its data."
+        },
+        {
+          "info": {
+            "name": "Stop a workflow run",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{baseUrl}/wfRun/:wfRunId/stop",
+            "params": [
+              {
+                "name": "wfRunId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Stops a running workflow."
+        },
+        {
+          "info": {
+            "name": "Resume a workflow run",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{baseUrl}/wfRun/:wfRunId/resume",
+            "params": [
+              {
+                "name": "wfRunId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Resumes a halted workflow run."
+        },
+        {
+          "info": {
+            "name": "Search workflow runs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{baseUrl}/wfRun/search",
+            "params": [
+              {
+                "name": "wfSpecName",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "bookmark",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Search for workflow runs based on criteria."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,484 @@
+{
+  "item": [
+    {
+      "id": "73ca3731-bf1e-4530-b1c4-ea32e383f3f8",
+      "name": "Workflow Specs",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7a20670b-6d83-42ac-8d50-b318736664c9",
+          "name": "List workflow specifications",
+          "request": {
+            "name": "List workflow specifications",
+            "description": {
+              "content": "Returns all registered workflow specifications.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wfSpec"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{baseUrl}}",
+                  "key": "baseUrl"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3360414b-1ee3-429d-9799-9c8af96edb97",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wfSpec"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{baseUrl}}",
+                      "key": "baseUrl"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": [\n    {\n      \"id\": {\n        \"name\": \"string\",\n        \"majorVersion\": 893,\n        \"revision\": 4116\n      },\n      \"status\": \"string\",\n      \"createdAt\": \"2007-08-12T06:53:24.274Z\",\n      \"threadSpecs\": {\n        \"key_0\": {\n          \"nodes\": {\n            \"key_0\": {},\n            \"key_1\": {}\n          }\n        },\n        \"key_1\": {\n          \"nodes\": {\n            \"key_0\": {}\n          }\n        }\n      },\n      \"entrypointThreadName\": \"string\",\n      \"retentionPolicy\": {}\n    },\n    {\n      \"id\": {\n        \"name\": \"string\",\n        \"majorVersion\": 3621,\n        \"revision\": 9203\n      },\n      \"status\": \"string\",\n      \"createdAt\": \"2024-04-22T07:52:34.073Z\",\n      \"threadSpecs\": {\n        \"key_0\": {\n          \"nodes\": {\n            \"key_0\": {},\n            \"key_1\": {},\n            \"key_2\": {}\n          }\n        },\n        \"key_1\": {\n          \"nodes\": {\n            \"key_0\": {},\n            \"key_1\": {},\n            \"key_2\": {}\n          }\n        },\n        \"key_2\": {\n          \"nodes\": {\n            \"key_0\": {}\n          }\n        }\n      },\n      \"entrypointThreadName\": \"string\",\n      \"retentionPolicy\": {}\n    }\n  ],\n  \"bookmark\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "aae9ee75-5d68-4d89-9136-16bdbb4921ee",
+          "name": "Create or update a workflow specification",
+          "request": {
+            "name": "Create or update a workflow specification",
+            "description": {
+              "content": "Creates or updates a workflow specification.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wfSpec"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{baseUrl}}",
+                  "key": "baseUrl"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"threadSpecs\": {\n    \"key_0\": {\n      \"nodes\": {\n        \"key_0\": \"<object>\",\n        \"key_1\": \"<object>\",\n        \"key_2\": \"<object>\"\n      },\n      \"variableDefs\": [\n        \"<object>\",\n        \"<object>\"\n      ],\n      \"interruptDefs\": [\n        \"<object>\",\n        \"<object>\"\n      ]\n    }\n  },\n  \"entrypointThreadName\": \"<string>\",\n  \"retentionPolicy\": \"<object>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "335192ae-7104-4a30-8d95-833303131fe0",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wfSpec"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{baseUrl}}",
+                      "key": "baseUrl"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"threadSpecs\": {\n    \"key_0\": {\n      \"nodes\": {\n        \"key_0\": {}\n      }\n    },\n    \"key_1\": {\n      \"nodes\": {\n        \"key_0\": {},\n        \"key_1\": {}\n      }\n    }\n  },\n  \"entrypointThreadName\": \"<string>\",\n  \"retentionPolicy\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": {\n    \"name\": \"string\",\n    \"majorVersion\": 3990,\n    \"revision\": 4381\n  },\n  \"status\": \"string\",\n  \"createdAt\": \"2015-03-13T16:46:12.567Z\",\n  \"threadSpecs\": {\n    \"key_0\": {\n      \"nodes\": {\n        \"key_0\": {}\n      }\n    },\n    \"key_1\": {\n      \"nodes\": {\n        \"key_0\": {},\n        \"key_1\": {},\n        \"key_2\": {},\n        \"key_3\": {}\n      }\n    }\n  },\n  \"entrypointThreadName\": \"string\",\n  \"retentionPolicy\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ea3b7c13-3fff-4421-ad12-5ef908beda54",
+          "name": "Get a workflow specification",
+          "request": {
+            "name": "Get a workflow specification",
+            "description": {
+              "content": "Returns a specific workflow specification by name.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wfSpec",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "majorVersion",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "revision",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) "
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{baseUrl}}",
+                  "key": "baseUrl"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1e140ff6-0f06-4b84-b31c-53ec73ada7a4",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wfSpec",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "majorVersion",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "revision",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{baseUrl}}",
+                      "key": "baseUrl"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": {\n    \"name\": \"string\",\n    \"majorVersion\": 3990,\n    \"revision\": 4381\n  },\n  \"status\": \"string\",\n  \"createdAt\": \"2015-03-13T16:46:12.567Z\",\n  \"threadSpecs\": {\n    \"key_0\": {\n      \"nodes\": {\n        \"key_0\": {}\n      }\n    },\n    \"key_1\": {\n      \"nodes\": {\n        \"key_0\": {},\n        \"key_1\": {},\n        \"key_2\": {},\n        \"key_3\": {}\n      }\n    }\n  },\n  \"entrypointThreadName\": \"string\",\n  \"retentionPolicy\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7fa1a2e5-92c1-4f5c-8938-c6d27d70ce07",
+          "name": "Delete a workflow specification",
+          "request": {
+            "name": "Delete a workflow specification",
+            "description": {
+              "content": "Deletes a workflow specification.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wfSpec",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "majorVersion",
+                  "value": "<integer>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "revision",
+                  "value": "<integer>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) "
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{baseUrl}}",
+                  "key": "baseUrl"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e4bcbf48-7d20-4f27-9ed3-762ac28b9306",
+              "name": "WfSpec deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wfSpec",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "majorVersion",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "revision",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{baseUrl}}",
+                      "key": "baseUrl"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "http://localhost:2023",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "{{baseUrl}}",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "c6e97fac-9d2a-4299-915b-defc5a06ec15",
+    "name": "LittleHorse REST External Events Workflow Specs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The LittleHorse REST API provides HTTP endpoints for managing workflow specifications (WfSpec), workflow runs (WfRun), task definitions (TaskDef), external event definitions, user tasks, and other resources in the LittleHorse workflow engine.\n\nContact Support:\n Name: LittleHorse",
+      "type": "text/plain"
+    }
+  }
+}

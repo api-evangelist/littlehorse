@@ -1,0 +1,100 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LittleHorse REST External Events Workflow Specs API",
+    "version": "0.12.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Workflow Specs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List workflow specifications",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{baseUrl}/wfSpec"
+          },
+          "docs": "Returns all registered workflow specifications."
+        },
+        {
+          "info": {
+            "name": "Create or update a workflow specification",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{baseUrl}/wfSpec",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or updates a workflow specification."
+        },
+        {
+          "info": {
+            "name": "Get a workflow specification",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{baseUrl}/wfSpec/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "majorVersion",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "revision",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns a specific workflow specification by name."
+        },
+        {
+          "info": {
+            "name": "Delete a workflow specification",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{baseUrl}/wfSpec/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "majorVersion",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "revision",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Deletes a workflow specification."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
