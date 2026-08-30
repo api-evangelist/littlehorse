@@ -40,6 +40,8 @@ apis:
   description: The External Events API from LittleHorse — 3 operation(s) for external events.
   humanURL: https://littlehorse.dev/
   tags:
+  - external-events
+  tags_raw:
   - External Events
   properties:
   - type: OpenAPI
