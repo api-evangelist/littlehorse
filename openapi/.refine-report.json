@@ -1,12 +1,7 @@
 {
   "provider": "littlehorse",
   "sources": [
-    "littlehorse-external-events-api-openapi.yml",
-    "littlehorse-node-runs-api-openapi.yml",
-    "littlehorse-task-definitions-api-openapi.yml",
-    "littlehorse-user-tasks-api-openapi.yml",
-    "littlehorse-workflow-runs-api-openapi.yml",
-    "littlehorse-workflow-specs-api-openapi.yml"
+    "_original/littlehorse-api.yml"
   ],
   "outputs": [
     "littlehorse-external-events-api-openapi.yml",
@@ -19,6 +14,23 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "littlehorse-api.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "littlehorse-api.yml: declared missing tag: External Events",
+    "littlehorse-api.yml: declared missing tag: Node Runs",
+    "littlehorse-api.yml: declared missing tag: Task Definitions",
+    "littlehorse-api.yml: declared missing tag: User Tasks",
+    "littlehorse-api.yml: declared missing tag: Workflow Runs",
+    "littlehorse-api.yml: declared missing tag: Workflow Specs",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "littlehorse-external-events-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "littlehorse-node-runs-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "littlehorse-task-definitions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "littlehorse-user-tasks-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "littlehorse-workflow-runs-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "littlehorse-workflow-specs-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
