@@ -113,6 +113,21 @@ paths:
           description: WfSpec deleted
 components:
   schemas:
+    ThreadSpec:
+      type: object
+      properties:
+        nodes:
+          type: object
+          additionalProperties:
+            type: object
+        variableDefs:
+          type: array
+          items:
+            type: object
+        interruptDefs:
+          type: array
+          items:
+            type: object
     PutWfSpecRequest:
       type: object
       required:
@@ -130,21 +145,6 @@ components:
           type: string
         retentionPolicy:
           type: object
-    ThreadSpec:
-      type: object
-      properties:
-        nodes:
-          type: object
-          additionalProperties:
-            type: object
-        variableDefs:
-          type: array
-          items:
-            type: object
-        interruptDefs:
-          type: array
-          items:
-            type: object
     WfSpec:
       type: object
       properties:

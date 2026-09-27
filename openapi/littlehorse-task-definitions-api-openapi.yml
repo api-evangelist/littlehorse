@@ -93,21 +93,6 @@ paths:
           description: TaskDef deleted
 components:
   schemas:
-    TaskDef:
-      type: object
-      properties:
-        id:
-          type: object
-          properties:
-            name:
-              type: string
-        inputVars:
-          type: array
-          items:
-            type: object
-        createdAt:
-          type: string
-          format: date-time
     PutTaskDefRequest:
       type: object
       required:
@@ -124,3 +109,18 @@ components:
                 type: string
               name:
                 type: string
+    TaskDef:
+      type: object
+      properties:
+        id:
+          type: object
+          properties:
+            name:
+              type: string
+        inputVars:
+          type: array
+          items:
+            type: object
+        createdAt:
+          type: string
+          format: date-time
