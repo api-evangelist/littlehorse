@@ -156,6 +156,23 @@ paths:
           description: Successful response
 components:
   schemas:
+    RunWfRequest:
+      type: object
+      required:
+      - wfSpecName
+      properties:
+        wfSpecName:
+          type: string
+        majorVersion:
+          type: integer
+        revision:
+          type: integer
+        id:
+          type: string
+        variables:
+          type: object
+        parentWfRunId:
+          type: string
     WfRun:
       type: object
       properties:
@@ -196,20 +213,3 @@ components:
           type: array
           items:
             type: object
-    RunWfRequest:
-      type: object
-      required:
-      - wfSpecName
-      properties:
-        wfSpecName:
-          type: string
-        majorVersion:
-          type: integer
-        revision:
-          type: integer
-        id:
-          type: string
-        variables:
-          type: object
-        parentWfRunId:
-          type: string

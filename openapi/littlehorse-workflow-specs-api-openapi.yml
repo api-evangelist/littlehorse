@@ -113,38 +113,6 @@ paths:
           description: WfSpec deleted
 components:
   schemas:
-    ThreadSpec:
-      type: object
-      properties:
-        nodes:
-          type: object
-          additionalProperties:
-            type: object
-        variableDefs:
-          type: array
-          items:
-            type: object
-        interruptDefs:
-          type: array
-          items:
-            type: object
-    PutWfSpecRequest:
-      type: object
-      required:
-      - name
-      - threadSpecs
-      - entrypointThreadName
-      properties:
-        name:
-          type: string
-        threadSpecs:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/ThreadSpec'
-        entrypointThreadName:
-          type: string
-        retentionPolicy:
-          type: object
     WfSpec:
       type: object
       properties:
@@ -170,3 +138,35 @@ components:
           type: string
         retentionPolicy:
           type: object
+    PutWfSpecRequest:
+      type: object
+      required:
+      - name
+      - threadSpecs
+      - entrypointThreadName
+      properties:
+        name:
+          type: string
+        threadSpecs:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/ThreadSpec'
+        entrypointThreadName:
+          type: string
+        retentionPolicy:
+          type: object
+    ThreadSpec:
+      type: object
+      properties:
+        nodes:
+          type: object
+          additionalProperties:
+            type: object
+        variableDefs:
+          type: array
+          items:
+            type: object
+        interruptDefs:
+          type: array
+          items:
+            type: object
